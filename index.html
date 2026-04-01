@@ -51,6 +51,7 @@
         .main-content { flex: 1; width: 100%; padding: 20px 24px 80px 24px; }
         h2 { margin-top: 40px; margin-bottom: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; text-align: left; }
         
+        /* THE 8 BOXES GRID */
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
         .card-link { text-decoration: none; color: inherit; display: block; }
 
@@ -59,11 +60,10 @@
         .card-img img { width: 80px; height: 80px; object-fit: cover; }
         .card-text { padding: 0 16px; font-weight: bold; font-size: 14px; }
 
-        /*--- SQUARE CARDS FIX ---*/
+        /*--- SQUARE CARDS ---*/
         .square-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
         .square-card { background-color: #121212; padding: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s ease; position: relative; z-index: 1; }
         
-        /* HOVER EFFECT FIXED */
         .square-card:hover { 
             background-color: #282828 !important; 
             transform: translateY(-8px) scale(1.02); 
@@ -78,7 +78,7 @@
             margin-bottom: 12px; 
             border-radius: 4px; 
             overflow: hidden; 
-            background: #282828; /* Placeholder color while loading */
+            background: #282828;
         }
         .square-img-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
@@ -88,7 +88,7 @@
         .color-red { background-color: #ff4632; color: black; }
         .color-pink { background-color: #f0a7ed; color: black; }
 
-        /*--- VIDEO BOX FIX ---*/
+        /*--- VIDEO BOX ---*/
         .song-flex-container { display: flex; gap: 25px; align-items: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #1a1a1a; margin-top: 20px; }
         
         .video-box { 
@@ -100,11 +100,6 @@
             background: black;
             border: 1px solid rgba(255, 255, 255, 0.1); 
             transition: 0.4s ease-in-out; 
-        }
-
-        .video-box:hover { 
-            border-color: #5EED18; 
-            box-shadow: 0 0 30px rgba(94, 237, 24, 0.3); 
         }
 
         .video-box video { width: 100%; height: 100%; object-fit: cover; }
@@ -144,9 +139,27 @@
             <a href="Likes.html" class="card-link">
                 <div class="card"><div class="card-img"><img src="like.jpg"></div><div class="card-text">Liked Songs</div></div>
             </a>
-            <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text">Pinoy Music</div></div>
-            <div class="card"><div class="card-img"><img src="kpop.jpg"></div><div class="card-text">K-pop Songs</div></div>
-            <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text">Hardrock / Metal</div></div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text">Pinoy Music</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="Kpop.jpg"></div><div class="card-text">kpop</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text">Hardrock / Metal</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="anime.jpg"></div><div class="card-text">Anime Music</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="TM.jpg"></div><div class="card-text">TV & Movies</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="phonk.jpg"></div><div class="card-text">Phonk Vibes</div></div>
+            </div>
+            <div class="card-link">
+                <div class="card"><div class="card-img"><img src="love.jpg"></div><div class="card-text">Love Songs</div></div>
+            </div>
         </div>
 
         <h2> RECOMMENDED FOR YOU </h2>
@@ -202,12 +215,16 @@
         function filterCards() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
-            const mainCards = document.querySelectorAll('#mainGrid .card, #mainGrid .card-link');
-            mainCards.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                item.style.display = text.includes(filter) ? "flex" : "none";
+            
+            // Fixed search for the 8 top cards
+            const mainCardLinks = document.querySelectorAll('#mainGrid .card-link');
+            mainCardLinks.forEach(link => {
+                const text = link.innerText.toLowerCase();
+                // We use "block" because they are anchors in a grid
+                link.style.display = text.includes(filter) ? "block" : "none";
             });
 
+            // Fixed search for recommended squares
             const squareCards = document.querySelectorAll('#recommendGrid .square-card');
             squareCards.forEach(card => {
                 const text = card.innerText.toLowerCase();
