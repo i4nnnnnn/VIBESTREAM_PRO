@@ -19,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /*--- HEADER (TOP NAV) ---*/
+        /*--- NAVIGATION ---*/
         .header-nav {
             background-color: black;
             padding: 10px 24px;
@@ -33,7 +33,12 @@
             border-bottom: 1px solid #1a1a1a;
         }
 
-        .site-logo { font-size: 18px; font-weight: 900; color: #5EED18; text-transform: uppercase; letter-spacing: 1px; }
+        .left-nav { display: flex; gap: 20px; align-items: center; }
+        .nav-item { display: flex; align-items: center; gap: 10px; text-decoration: none; color: white; font-weight: bold; font-size: 14px; transition: 0.2s; cursor: pointer; }
+        .nav-item:hover { color: #5EED18; }
+        .custom-icon { width: 32px; height: 32px; filter: drop-shadow(0 0 8px #1DB954); }
+        .nav-item.active { color: #5EED18; border-bottom: 2px solid #5EED18; padding-bottom: 5px; }
+        .site-logo { font-size: 18px; font-weight: 900; color: #5EED18; margin-left: 15px; text-transform: uppercase; letter-spacing: 1px; }
 
         .header-right { display: flex; align-items: center; gap: 16px; }
         .search-container input { background-color: #121212; border: 1px solid #333; border-radius: 20px; padding: 10px 20px; color: white; width: 250px; font-size: 14px; outline: none; transition: 0.3s; }
@@ -42,75 +47,52 @@
         .account-icon { width: 38px; height: 38px; background-color: #282828; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #5EED18; cursor: pointer; }
         .account-icon img { width: 100%; height: 100%; object-fit: cover; }
 
-        /*--- FLOATING PLAYER & MOBILE BOTTOM NAV ---*/
-        .mini-player {
+        /*--- UPDATED: FLOATING BOTTOM NAV BAR ---*/
+        .floating-nav-bar {
             position: fixed;
-            bottom: 82px; 
+            bottom: 20px; 
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 20px);
-            max-width: 500px;
-            background-color: #282828;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            padding: 8px 12px;
-            z-index: 2900;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .mini-player img { width: 42px; height: 42px; border-radius: 4px; margin-right: 12px; object-fit: cover; }
-        .player-info { flex: 1; min-width: 0; }
-        .player-info .song-title { font-size: 13px; font-weight: bold; display: block; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .player-info .artist-name { font-size: 11px; color: #b3b3b3; }
-        
-        .player-controls { display: flex; gap: 18px; align-items: center; }
-        
-        /* Interactive Buttons */
-        .icon-btn { 
-            width: 22px; 
-            height: 22px; 
-            cursor: pointer; 
-            opacity: 0.8; 
-            transition: transform 0.2s, opacity 0.2s;
-            background: none;
-            border: none;
-            padding: 0;
-        }
-        .icon-btn:hover { transform: scale(1.1); opacity: 1; }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 75px;
-            background-color: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            border-top: 1px solid #1a1a1a;
+            width: 90%;
+            max-width: 450px;
+            background-color: rgba(18, 18, 18, 0.95);
+            border-radius: 30px;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            z-index: 3000;
-            padding-bottom: 10px;
+            padding: 12px 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            border: 1px solid rgba(94, 237, 24, 0.3);
+            backdrop-filter: blur(10px);
         }
 
-        .nav-item { 
-            display: flex; 
+        .float-item {
+            display: flex;
             flex-direction: column;
-            align-items: center; 
-            gap: 4px; 
-            text-decoration: none; 
-            color: #b3b3b3; 
-            font-weight: bold; 
-            font-size: 10px; 
-            transition: 0.2s; 
-            cursor: pointer; 
+            align-items: center;
+            text-decoration: none;
+            color: #b3b3b3;
+            font-size: 10px;
+            font-weight: bold;
+            gap: 4px;
+            transition: 0.3s;
         }
-        .nav-item:hover, .nav-item.active { color: #5EED18; }
-        .custom-icon { width: 24px; height: 24px; transition: 0.2s; }
-        .nav-item:not(.active) .custom-icon { filter: grayscale(1); opacity: 0.6; }
+
+        .float-item:hover, .float-item.active {
+            color: #5EED18;
+        }
+
+        .float-icon {
+            width: 24px;
+            height: 24px;
+            transition: 0.3s;
+        }
+
+        .float-item:hover .float-icon {
+            transform: translateY(-3px);
+            filter: drop-shadow(0 0 5px #5EED18);
+        }
 
         /*--- SIGN-IN CARD ---*/
         .login-overlay {
@@ -121,7 +103,7 @@
             display: none; 
             justify-content: center;
             align-items: center;
-            z-index: 4000;
+            z-index: 2000;
             backdrop-filter: blur(10px);
         }
 
@@ -161,10 +143,11 @@
         .login-footer a { color: #5EED18; text-decoration: none; font-weight: bold; }
 
         /*--- MAIN CONTENT ---*/
-        .main-content { flex: 1; width: 100%; padding: 20px 24px 180px 24px; } 
+        .main-content { flex: 1; width: 100%; padding: 20px 24px 100px 24px; } 
         h2 { margin-top: 40px; margin-bottom: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; text-align: left; }
         
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        
         .card-link { text-decoration: none; color: inherit; display: block; }
 
         .card { display: flex; align-items: center; background-color: #181818; border-radius: 6px; overflow: hidden; height: 80px; cursor: pointer; transition: 0.3s; }
@@ -177,14 +160,13 @@
         .square-card:hover { background-color: rgba(255, 255, 255, 0.08); transform: scale(1.04); }
         .square-img-container { position: relative; width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; border-radius: 4px; overflow: hidden; }
         .square-img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
         .mix-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 8px; font-weight: 900; font-size: 12px; display: flex; justify-content: space-between; }
         .color-cyan { background-color: #00f0ff; color: black; }
         .color-yellow { background-color: #f0ff00; color: black; }
         .color-red { background-color: #ff4632; color: black; }
         .color-pink { background-color: #f0a7ed; color: black; }
 
-        /*--- SONG OF THE MONTH ---*/
+        /*--- SONG OF THE MONTH + VIDEO HOVER ---*/
         .song-flex-container { display: flex; gap: 25px; align-items: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #1a1a1a; margin-top: 20px; }
         
         .video-box { 
@@ -193,7 +175,6 @@
             border-radius: 10px; 
             overflow: hidden; 
             position: relative; 
-            background: #000;
             border: 1px solid rgba(255, 255, 255, 0.1); 
             transition: 0.4s ease-in-out; 
             cursor: pointer;
@@ -227,6 +208,9 @@
 
     <header class="header-nav">
         <div class="left-nav">
+            <a href="Home.html" class="nav-item active"><img src="homeicon.png" class="custom-icon"> HOME</a>
+            <a href="Premium.html" class="nav-item"><img src="premium.png" class="custom-icon"> PREMIUM</a>
+            <a href="About.html" class="nav-item"><img src="abouticon.png" class="custom-icon"> ABOUT US</a>
             <span class="site-logo">VIBESTREAM PRO</span>
         </div>
         <div class="header-right">
@@ -236,45 +220,6 @@
             <div class="account-icon" onclick="toggleLogin()"><img src="pfp.png" alt="Profile"></div>
         </div>
     </header>
-
-    <div class="mini-player">
-        <img src="girlinred.jpg" alt="we fell in love in october">
-        <div class="player-info">
-            <span class="song-title">we fell in love in october</span>
-            <span class="artist-name">girl in red</span>
-        </div>
-        <div class="player-controls">
-            <button class="icon-btn" title="Like">
-                <img src="heart-icon.png" alt="Like">
-            </button>
-            <button class="icon-btn" title="Play">
-                <img src="play-icon.png" alt="Play" style="width: 26px; height: 26px;">
-            </button>
-        </div>
-    </div>
-
-    <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active">
-            <img src="homeicon.png" class="custom-icon"> 
-            <span>HOME</span>
-        </a>
-        <a href="#" class="nav-item">
-            <img src="searchicon.png" class="custom-icon"> 
-            <span>SEARCH</span>
-        </a>
-        <a href="#" class="nav-item">
-            <img src="libraryicon.png" class="custom-icon"> 
-            <span>LIBRARY</span>
-        </a>
-        <a href="Premium.html" class="nav-item">
-            <img src="premium.png" class="custom-icon"> 
-            <span>PREMIUM</span>
-        </a>
-        <a href="About.html" class="nav-item">
-            <img src="abouticon.png" class="custom-icon"> 
-            <span>ABOUT</span>
-        </a>
-    </nav>
 
     <div class="login-overlay" id="loginOverlay">
         <div class="login-card">
@@ -303,27 +248,13 @@
             <a href="Likes.html" class="card-link">
                 <div class="card"><div class="card-img"><img src="like.jpg"></div><div class="card-text">Liked Songs</div></div>
             </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text">Pinoy Music</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="kpop.jpg"></div><div class="card-text">K-pop</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text">Hardrock / Metal</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="anime.jpg"></div><div class="card-text">Anime Music</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="TM.jpg"></div><div class="card-text">TV & Movies</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="phonk.jpg"></div><div class="card-text">Phonk Vibes</div></div>
-            </a>
-            <a href="#" class="card-link">
-                <div class="card"><div class="card-img"><img src="love.jpg"></div><div class="card-text">Love Songs</div></div>
-            </a>
+            <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text">Pinoy Music</div></div>
+            <div class="card"><div class="card-img"><img src="Kpop.jpg"></div><div class="card-text">K-pop Songs</div></div>
+            <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text">Hardrock / Metal</div></div>
+            <div class="card"><div class="card-img"><img src="anime.jpg"></div><div class="card-text">Anime Music</div></div>
+            <div class="card"><div class="card-img"><img src="TM.jpg"></div><div class="card-text">TV & Movies</div></div>
+            <div class="card"><div class="card-img"><img src="phonk.jpg"></div><div class="card-text">Phonk Vibes</div></div>
+            <div class="card"><div class="card-img"><img src="love.jpg"></div><div class="card-text">Love Songs</div></div>
         </div>
 
         <h2 id="titleRecommended"> RECOMMENDED FOR YOU </h2>
@@ -347,6 +278,9 @@
                         <p class="lyric-line">I'm goin' stateside, where I'll see you</p>
                         <p class="lyric-line">How did a girl like me get into you?</p>
                         <p class="lyric-line">You can be my American boy...</p>
+                        <p class="lyric-line">I'm freezin' outside, I feel my skin tight</p>
+                        <p class="lyric-line">I tracked your plane ride for tonight</p>
+                        <p class="lyric-line">I'm goin' stateside, where I'll see you</p>
                     </div>
                 </div>
             </div>
@@ -356,6 +290,21 @@
             </div>
         </div>
     </main>
+
+    <nav class="floating-nav-bar">
+        <a href="Home.html" class="float-item active">
+            <img src="homeicon.png" class="float-icon">
+            <span>HOME</span>
+        </a>
+        <a href="Premium.html" class="float-item">
+            <img src="premium.png" class="float-icon">
+            <span>PREMIUM</span>
+        </a>
+        <a href="About.html" class="float-item">
+            <img src="abouticon.png" class="float-icon">
+            <span>ABOUT US</span>
+        </a>
+    </nav>
 
     <footer class="footer"> ALL RIGHTS RESERVED - VIBE STREAM PRO 2026 </footer>
 
@@ -368,13 +317,12 @@
         function filterCards() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
-            
-            const mainCardLinks = document.querySelectorAll('#mainGrid .card-link');
-            mainCardLinks.forEach(link => {
-                const text = link.innerText.toLowerCase();
-                link.style.display = text.includes(filter) ? "block" : "none";
+            const mainCards = document.querySelectorAll('#mainGrid .card, #mainGrid .card-link');
+            mainCards.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(filter) ? "block" : "none";
+                if (item.classList.contains('card') && text.includes(filter)) item.style.display = "flex";
             });
-
             const squareCards = document.querySelectorAll('#recommendGrid .square-card');
             squareCards.forEach(card => {
                 const text = card.innerText.toLowerCase();
