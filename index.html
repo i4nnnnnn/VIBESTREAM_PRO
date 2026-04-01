@@ -19,7 +19,7 @@
             overflow-x: hidden;
         }
 
-        /*--- HEADER (REMAINING TOP NAV) ---*/
+        /*--- HEADER (TOP NAV) ---*/
         .header-nav {
             background-color: black;
             padding: 10px 24px;
@@ -42,37 +42,61 @@
         .account-icon { width: 38px; height: 38px; background-color: #282828; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid #5EED18; cursor: pointer; }
         .account-icon img { width: 100%; height: 100%; object-fit: cover; }
 
-        /*--- BOTTOM NAVIGATION (SPOTIFY STYLE) ---*/
+        /*--- NEW: FLOATING PLAYER & MOBILE BOTTOM NAV ---*/
+        .mini-player {
+            position: fixed;
+            bottom: 82px; /* Sits right above the 75px bottom nav */
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 20px);
+            max-width: 500px;
+            background-color: #282828;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            z-index: 2900;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        }
+
+        .mini-player img { width: 42px; height: 42px; border-radius: 4px; margin-right: 12px; }
+        .player-info { flex: 1; }
+        .player-info .song-title { font-size: 13px; font-weight: bold; display: block; color: white; }
+        .player-info .artist-name { font-size: 11px; color: #b3b3b3; }
+        .player-controls { display: flex; gap: 18px; align-items: center; }
+        .player-controls .icon-btn { width: 22px; height: 22px; cursor: pointer; opacity: 0.8; }
+
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 70px;
-            background-color: rgba(0, 0, 0, 0.9);
+            height: 75px;
+            background-color: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(15px);
             border-top: 1px solid #1a1a1a;
             display: flex;
             justify-content: space-around;
             align-items: center;
             z-index: 3000;
+            padding-bottom: 10px;
         }
 
         .nav-item { 
             display: flex; 
             flex-direction: column;
             align-items: center; 
-            gap: 5px; 
+            gap: 4px; 
             text-decoration: none; 
             color: #b3b3b3; 
             font-weight: bold; 
-            font-size: 11px; 
+            font-size: 10px; 
             transition: 0.2s; 
             cursor: pointer; 
         }
-        .nav-item:hover { color: #5EED18; }
-        .custom-icon { width: 24px; height: 24px; filter: drop-shadow(0 0 5px rgba(94, 237, 24, 0.2)); }
-        .nav-item.active { color: #5EED18; }
+        .nav-item:hover, .nav-item.active { color: #5EED18; }
+        .custom-icon { width: 24px; height: 24px; transition: 0.2s; }
+        .nav-item:not(.active) .custom-icon { filter: grayscale(1); opacity: 0.6; }
 
         /*--- SIGN-IN CARD ---*/
         .login-overlay {
@@ -123,7 +147,7 @@
         .login-footer a { color: #5EED18; text-decoration: none; font-weight: bold; }
 
         /*--- MAIN CONTENT ---*/
-        .main-content { flex: 1; width: 100%; padding: 20px 24px 100px 24px; } /* Added padding for bottom nav */
+        .main-content { flex: 1; width: 100%; padding: 20px 24px 180px 24px; } /* Increased bottom padding */
         h2 { margin-top: 40px; margin-bottom: 15px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; text-align: left; }
         
         .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
@@ -182,7 +206,7 @@
         .footer { border-top: 1px solid #1a1a1a; padding: 60px 40px; text-align: center; color: rgba(255,255,255,0.2); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
 
         @media(max-width: 1024px) { .grid, .square-container { grid-template-columns: repeat(2, 1fr); } }
-        @media(max-width: 768px) { .song-flex-container { flex-direction: column; } .search-container input { width: 150px; } }
+        @media(max-width: 768px) { .song-flex-container { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -193,16 +217,45 @@
         </div>
         <div class="header-right">
             <div class="search-container">
-                <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Search...">
+                <input type="text" id="searchInput" onkeyup="filterCards()" placeholder="Search for songs...">
             </div>
             <div class="account-icon" onclick="toggleLogin()"><img src="pfp.png" alt="Profile"></div>
         </div>
     </header>
 
+    <div class="mini-player">
+        <img src="daily1.jpg" alt="Now Playing">
+        <div class="player-info">
+            <span class="song-title">Lovely (with Khalid)</span>
+            <span class="artist-name">Billie Eilish</span>
+        </div>
+        <div class="player-controls">
+            <img src="heart-icon.png" class="icon-btn" alt="Like">
+            <img src="play-icon.png" class="icon-btn" alt="Play" style="width: 26px; height: 26px;">
+        </div>
+    </div>
+
     <nav class="bottom-nav">
-        <a href="index.html" class="nav-item active"><img src="homeicon.png" class="custom-icon"><span>HOME</span></a>
-        <a href="Premium.html" class="nav-item"><img src="premium.png" class="custom-icon"><span>PREMIUM</span></a>
-        <a href="About.html" class="nav-item"><img src="abouticon.png" class="custom-icon"><span>ABOUT US</span></a>
+        <a href="index.html" class="nav-item active">
+            <img src="homeicon.png" class="custom-icon"> 
+            <span>HOME</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="searchicon.png" class="custom-icon"> 
+            <span>SEARCH</span>
+        </a>
+        <a href="#" class="nav-item">
+            <img src="libraryicon.png" class="custom-icon"> 
+            <span>LIBRARY</span>
+        </a>
+        <a href="Premium.html" class="nav-item">
+            <img src="premium.png" class="custom-icon"> 
+            <span>PREMIUM</span>
+        </a>
+        <a href="About.html" class="nav-item">
+            <img src="abouticon.png" class="custom-icon"> 
+            <span>ABOUT</span>
+        </a>
     </nav>
 
     <div class="login-overlay" id="loginOverlay">
