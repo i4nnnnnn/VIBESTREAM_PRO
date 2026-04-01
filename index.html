@@ -109,7 +109,7 @@
         .card-text { padding: 0 16px; font-weight: bold; font-size: 14px; }
 
         .square-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .square-card { background-color: #121212; padding: 166px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .square-card { background-color: #121212; padding: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; position: relative; }
         .square-card:hover { background-color: rgba(255, 255, 255, 0.08); transform: scale(1.04); }
         .square-img-container { position: relative; width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; border-radius: 4px; overflow: hidden; }
         .square-img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -119,7 +119,7 @@
         .color-red { background-color: #ff4632; color: black; }
         .color-pink { background-color: #f0a7ed; color: black; }
 
-        /*--- SONG OF THE MONTH + VIDEO HOVER ---*/
+        /*--- SONG OF THE MONTH ---*/
         .song-flex-container { display: flex; gap: 25px; align-items: center; background: #0a0a0a; padding: 20px; border-radius: 15px; border: 1px solid #1a1a1a; margin-top: 20px; }
         
         .video-box { 
@@ -202,7 +202,7 @@
                 <div class="card"><div class="card-img"><img src="like.jpg"></div><div class="card-text">Liked Songs</div></div>
             </a>
             <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text">Pinoy Music</div></div>
-            <div class="card"><div class="card-img"><img src="kpop.jpg"></div><div class="card-text">K-pop Songs</div></div>
+            <div class="card"><div class="card-img"><img src="Kpop.jpg"></div><div class="card-text">K-pop Songs</div></div>
             <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text">Hardrock / Metal</div></div>
             <div class="card"><div class="card-img"><img src="anime.jpg"></div><div class="card-text">Anime Music</div></div>
             <div class="card"><div class="card-img"><img src="TM.jpg"></div><div class="card-text">TV & Movies</div></div>
@@ -222,7 +222,7 @@
         <div class="month-section">
             <div class="song-flex-container">
                 <div class="video-box">
-                    <video autoplay muted loop playsinline poster="BTB.png">
+                    <video autoplay muted loop playsinline>
                         <source src="PPRES.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
