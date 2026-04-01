@@ -109,7 +109,7 @@
         .card-text { padding: 0 16px; font-weight: bold; font-size: 14px; }
 
         .square-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-        .square-card { background-color: #121212; padding: 16px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .square-card { background-color: #121212; padding: 166px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
         .square-card:hover { background-color: rgba(255, 255, 255, 0.08); transform: scale(1.04); }
         .square-img-container { position: relative; width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; border-radius: 4px; overflow: hidden; }
         .square-img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -222,7 +222,10 @@
         <div class="month-section">
             <div class="song-flex-container">
                 <div class="video-box">
-                    <video autoplay muted loop playsinline><source src="PPRES.mp4" type="video/mp4"></video>
+                    <video autoplay muted loop playsinline poster="BTB.png">
+                        <source src="PPRES.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="lyrics-slideshow">
                     <div class="lyrics-wrapper">
@@ -252,21 +255,17 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // NEW: Search Filtering for Home
         function filterCards() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
             
-            // Filter the top grid (rectangles)
             const mainCards = document.querySelectorAll('#mainGrid .card, #mainGrid .card-link');
             mainCards.forEach(item => {
                 const text = item.innerText.toLowerCase();
                 item.style.display = text.includes(filter) ? "block" : "none";
-                // Note: using block for links, but the grid handles the alignment
                 if (item.classList.contains('card') && text.includes(filter)) item.style.display = "flex";
             });
 
-            // Filter the square recommendations
             const squareCards = document.querySelectorAll('#recommendGrid .square-card');
             squareCards.forEach(card => {
                 const text = card.innerText.toLowerCase();
